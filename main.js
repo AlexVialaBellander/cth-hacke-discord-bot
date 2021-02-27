@@ -1,5 +1,8 @@
 const Discord = require("discord.js")
 const say = require("./features/say.js")
+const config = require("config.json")
+
+
 const client = new Discord.Client()
 
 client.on("message", message => {
@@ -10,6 +13,7 @@ client.on("message", message => {
 
 client.once("ready", () => {
     console.log("bot is online")
+    console.log(config)
     /*
     client.api.applications(client.user.id).guilds('812278673386111016').commands.get().then(function(data) {
         console.log(data);
@@ -48,4 +52,4 @@ async function createAPIMessage(interaction, content) {
     return apiMessage
 }
 
-client.login('ODEyMzE0Mzg0NTYxODY0NzM2.YC-8uQ.FTV45fE67raOydDhkMGd1TsRds8')
+client.login(config)

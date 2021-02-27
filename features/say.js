@@ -73,8 +73,8 @@ async function handle(Discord, client, interaction, command, args) {
         client.channels.cache.get(channel == "default" ? interaction.channel_id : channel).send("", embedMessage)
 
     } else edit : if (args[0]["name"] == "edit"){
-        const title = args[0]["options"].find(arg => arg.name.toLowerCase() == "title").value
-        const description = args[0]["options"].find(arg => arg.name.toLowerCase() == "description").value
+        const title = args[0]["options"].find(arg => arg.name.toLowerCase() == "title")
+        const description = args[0]["options"].find(arg => arg.name.toLowerCase() == "description")
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
         let message = ""
@@ -85,10 +85,9 @@ async function handle(Discord, client, interaction, command, args) {
             break edit
         }
         const embedMessage = new Discord.MessageEmbed()
-            .setTitle(title)
-            .setDescription(description)
+            .setTitle(title == undefined ? message.embeds[0].title : title.value)
+            .setDescription(description == undefined ? message.embeds[0].description : description.value)
             .setColor(0xfa6607)
-        console.log()
         message.edit("", embedMessage)
     }
 }

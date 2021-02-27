@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const say = require("./features/say.js")
 const react = require("./features/react.js")
+const dfoto = require("./features/dfoto.js")
 const config = require("./config.json")
 
 
@@ -8,29 +9,22 @@ const client = new Discord.Client()
 
 client.on("message", message => {
     if (message.content === "ping") {
-      message.channel.send("pong");
+        message.channel.send("pong");
+    } else if (message.content === "!dfoto") {
+        dfoto.random()
+        .then((url) => message.channel.send({
+             files: [{
+                attachment: url,
+                name: 'file.jpg'
+             }]
+          }))
     }
 })
 
 client.once("ready", () => {
     console.log("bot is online")
-
-    /*
-    client.api.applications(client.user.id).guilds('812278673386111016').commands.get().then(function(data) {
-        console.log(data);
-    });
     
-
     
-    client.api.applications(client.user.id).guilds('812278673386111016').commands('815248387271426099').delete().then(function(data) {
-        console.log(data);
-    });
-
-    client.api.applications(client.user.id).guilds('812278673386111016').commands.get().then(function(data) {
-        console.log(data);
-    }); 
-    */
-
     //https://discord.com/developers/docs/interactions/slash-commands#create-guild-application-command
     client.api.applications(client.user.id).guilds('812278673386111016').commands.post({
         data: say.command

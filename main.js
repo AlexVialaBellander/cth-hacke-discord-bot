@@ -15,7 +15,7 @@ client.on("message", message => {
         .then((url) => message.channel.send({
              files: [{
                 attachment: url,
-                name: 'file.jpg'
+                name: 'dfoto_random.jpg'
              }]
           }))
     }
@@ -23,7 +23,6 @@ client.on("message", message => {
 
 client.once("ready", () => {
     console.log("bot is online")
-    
     
     //https://discord.com/developers/docs/interactions/slash-commands#create-guild-application-command
     client.api.applications(client.user.id).guilds('812278673386111016').commands.post({
@@ -44,15 +43,11 @@ client.once("ready", () => {
                 say.handle(Discord, client, interaction, command, args)
                 break;
             case "react":
-                console.log("rolebot command launched")
+                react.handle(Discord, client, interaction, command, args)
               break;
             default:
               // code block
           }
-
-
-        if(command == "say") {
-        }
     })
     
 })

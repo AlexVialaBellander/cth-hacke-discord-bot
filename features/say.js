@@ -77,10 +77,11 @@ async function handle(Discord, client, interaction, command, args) {
         const description = args[0]["options"].find(arg => arg.name.toLowerCase() == "description").value
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
+        let message = ""
         try {
-            let message = await targetChannel['messages'].fetch(target)
+            message = await targetChannel['messages'].fetch(target)
         } catch {
-            console.log("HACKE.EDIT : Message not found in interaction channel")
+            console.log("SAY.EDIT : Message not found in interaction channel")
             break edit
         }
         const embedMessage = new Discord.MessageEmbed()

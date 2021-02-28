@@ -48,14 +48,12 @@ let command = {
                         name: "message-id",
                         description: "send the message ID you want to edit",
                         type: 3,
-                        required: false
+                        required: true
                     }
                 ]
             } 
         ]
 }
-
-
 
 async function handle(Discord, client, interaction, command, args) {
     if(args[0]["name"] == "create") {

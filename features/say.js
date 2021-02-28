@@ -33,10 +33,10 @@ let command = {
                 type: 1,
                 options: [
                     {
-                        name: "title",
-                        description: "title of the message",
+                        name: "message-id",
+                        description: "send the message ID you want to edit",
                         type: 3,
-                        required: false
+                        required: true
                     },
                     {
                         name: "description",
@@ -45,10 +45,10 @@ let command = {
                         required: false
                     },
                     {
-                        name: "message-id",
-                        description: "send the message ID you want to edit",
+                        name: "title",
+                        description: "title of the message",
                         type: 3,
-                        required: true
+                        required: false
                     }
                 ]
             } 
@@ -66,7 +66,7 @@ async function handle(Discord, client, interaction, command, args) {
         }
         const embedMessage = new Discord.MessageEmbed()
             .setTitle(title)
-            .setDescription(description)
+            .setDescription(String(description.value).replace(/\\n/g, `\n`))
             .setColor(0xfa6607)
         client.channels.cache.get(channel == "default" ? interaction.channel_id : channel).send("", embedMessage)
 
@@ -84,7 +84,7 @@ async function handle(Discord, client, interaction, command, args) {
         }
         const embedMessage = new Discord.MessageEmbed()
             .setTitle(title == undefined ? message.embeds[0].title : title.value)
-            .setDescription(description == undefined ? message.embeds[0].description : description.value)
+            .setDescription(description == undefined ? message.embeds[0].description : String(description.value).replace(/\\n/g, `\n`))
             .setColor(0xfa6607)
         message.edit("", embedMessage)
     }

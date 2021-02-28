@@ -5,7 +5,10 @@ const dfoto = require("./features/dfoto.js")
 const config = require("./config.json")
 
 
-const client = new Discord.Client()
+const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] })
+
+react.addListenerForAdd(client)
+react.addListenerForRemove(client)
 
 client.on("message", message => {
     if (message.content === "ping") {
@@ -20,6 +23,9 @@ client.on("message", message => {
           }))
     }
 })
+
+
+
 
 client.once("ready", () => {
     console.log("bot is online")

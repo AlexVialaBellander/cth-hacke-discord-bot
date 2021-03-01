@@ -1,5 +1,8 @@
 ![github](https://user-images.githubusercontent.com/42417723/109477305-29bf5000-7a78-11eb-903b-6a07bef23fc8.png)
 
+# IMPORTANT
+Some values related to the testing discord are still included in the pushed version. Mind these and do not forget to update these. This is specifically true for posting the slashcommands.
+
 # Community Discord Bot
 
 This bot was originally developed for a community Discord for Computer Science and Engineering Students @ Chalmers Unviersity of Technology.

@@ -1,7 +1,10 @@
 const Discord = require("discord.js")
+const logging = require("./handling/logging.js")
+const commands = require("./handling/postCommands.js")
 const say = require("./features/say.js")
 const react = require("./features/react.js")
 const dfoto = require("./features/dfoto.js")
+const cffc = require("./features/cffc.js")
 const config = require("./config.json")
 
 
@@ -11,33 +14,22 @@ react.addListenerForAdd(client)
 react.addListenerForRemove(client)
 
 client.on("message", message => {
-    if (message.content === "ping") {
-        message.channel.send("pong");
-    } else if (message.content === "!dfoto") {
-        dfoto.random()
-        .then((url) => message.channel.send({
-             files: [{
-                attachment: url,
-                name: 'dfoto_random.jpg'
-             }]
-          }))
+    switch(message.content) {
+        case "ping":
+            message.channel.send("pong")
+            break;
+        case "!dfoto": 
+            config.features.dfoto ? dfoto.action(message) : null
+            break;
+        case "!cffc":
+            config.features.cffc ? cffc.action(message) : null
+            break;
     }
 })
 
-
-
-
 client.once("ready", () => {
-    console.log("bot is online")
-    
-    //https://discord.com/developers/docs/interactions/slash-commands#create-guild-application-command
-    client.api.applications(client.user.id).guilds('812278673386111016').commands.post({
-        data: say.command
-    })
-
-    client.api.applications(client.user.id).guilds('812278673386111016').commands.post({
-        data: react.command
-    })
+    console.log(logging.startup)
+    commands.post(client)
 
     //https://discord.com/developers/docs/interactions/slash-commands#interaction
     client.ws.on("INTERACTION_CREATE", async interaction => {
@@ -46,10 +38,10 @@ client.once("ready", () => {
 
         switch(command) {
             case "say":
-                say.handle(Discord, client, interaction, command, args)
+                config.features.say ? say.handle(Discord, client, interaction, command, args) : null
                 break;
             case "react":
-                react.handle(Discord, client, interaction, command, args)
+                config.features.react ? react.handle(Discord, client, interaction, command, args) : null
               break;
             default:
               // code block
@@ -58,4 +50,4 @@ client.once("ready", () => {
     
 })
 
-client.login(config)
+client.login(config.token)

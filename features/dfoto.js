@@ -10,4 +10,14 @@ async function random() {
     return `https://dfoto.se/v1/image/${allImages[Math.floor(Math.random() * allImages.length)]._id}/preview`
 }
 
-exports.random = random;
+async function action(message) {
+    random()
+        .then((url) => message.channel.send({
+             files: [{
+                attachment: url,
+                name: 'dfoto_random.jpg'
+             }]
+          }))
+}
+
+exports.action = action;

@@ -1,1 +1,13 @@
-"Token Goes Here"
+{
+    "token" : "insert bot token here",
+    "developer" : {
+        "testing" : false,
+        "guild_id" : "for development mode, insert guild id here"
+    },
+    "features" : {
+        "dfoto" : false,
+        "cffc" : false,
+        "rolebot" : true,
+        "say" : true
+    }
+}

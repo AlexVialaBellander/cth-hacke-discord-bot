@@ -1,13 +1,14 @@
 {
   "name": "data-discord",
-  "version": "1.0.0",
-  "description": "NA",
+  "version": "0.7.0",
+  "description": "A Discord bot project called Hacke made for the computer science student division discord.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alexander Viala Bellander",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.0",
     "discord.js": "^12.5.1",

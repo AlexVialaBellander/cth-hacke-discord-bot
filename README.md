@@ -1,7 +1,7 @@
 ![github](https://user-images.githubusercontent.com/42417723/109477305-29bf5000-7a78-11eb-903b-6a07bef23fc8.png)
 
-# IMPORTANT
-Some values related to the testing discord are still included in the pushed version. Mind these and do not forget to update these. This is specifically true for posting the slashcommands.
+# Running the bot
+Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
 
 # Community Discord Bot
 

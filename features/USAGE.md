@@ -2,6 +2,9 @@
 # How to use the bot
 Instructions on how to use the different features
 
+
+![React](https://user-images.githubusercontent.com/42417723/110225177-0e729b80-7ee3-11eb-837a-9833b4fe3c12.png)
+
 ## React-to-role
 Instruction on how to use react-to-role.
 

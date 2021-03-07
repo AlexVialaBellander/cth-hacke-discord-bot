@@ -1,57 +1,57 @@
 let command = {
     name: "say",
-        description: "interact as Hacke",
-        options: [
-            {
-                name: "create",
-                description: "create a post as Hacke",
-                type: 1,
-                options: [
-                    {
-                        name: "title",
-                        description: "title of the message",
-                        type: 3,
-                        required: true
-                    },
-                    {
-                        name: "description",
-                        description: "explanatory message that will be posted in the channel",
-                        type: 3,
-                        required: true
-                    },
-                    {
-                        name: "channel",
-                        description: "choose a channel to post your message",
-                        type: 7,
-                        required: false
-                    }
-                ]
-            },
-            {
-                name: "edit",
-                description: "edit a Hacke message",
-                type: 1,
-                options: [
-                    {
-                        name: "message-id",
-                        description: "send the message ID you want to edit",
-                        type: 3,
-                        required: true
-                    },
-                    {
-                        name: "description",
-                        description: "explanatory message that will be posted in the channel",
-                        type: 3,
-                        required: false
-                    },
-                    {
-                        name: "title",
-                        description: "title of the message",
-                        type: 3,
-                        required: false
-                    }
-                ]
-            } 
+    description: "interact as Hacke",
+    options: [
+        {
+            name: "create",
+            description: "create a post as Hacke",
+            type: 1,
+            options: [
+                {
+                    name: "title",
+                    description: "title of the message",
+                    type: 3,
+                    required: true
+                },
+                {
+                    name: "description",
+                    description: "explanatory message that will be posted in the channel",
+                    type: 3,
+                    required: true
+                },
+                {
+                    name: "channel",
+                    description: "choose a channel to post your message",
+                    type: 7,
+                    required: false
+                }
+            ]
+        },
+        {
+            name: "edit",
+            description: "edit a Hacke message",
+            type: 1,
+            options: [
+                {
+                    name: "message-id",
+                    description: "send the message ID you want to edit",
+                    type: 3,
+                    required: true
+                },
+                {
+                    name: "description",
+                    description: "explanatory message that will be posted in the channel",
+                    type: 3,
+                    required: false
+                },
+                {
+                    name: "title",
+                    description: "title of the message",
+                    type: 3,
+                    required: false
+                }
+            ]
+        } 
         ]
 }
 

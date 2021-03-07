@@ -5,6 +5,7 @@ const say = require("./features/say.js")
 const react = require("./features/react.js")
 const dfoto = require("./features/dfoto.js")
 const cffc = require("./features/cffc.js")
+const room = require("./features/study-room.js")
 const config = require("./config.json")
 
 
@@ -27,6 +28,10 @@ client.on("message", message => {
     }
 })
 
+client.on('voiceStateUpdate', async (oldState, newState) =>{
+    room.handle_event(oldState, newState)
+})
+
 client.once("ready", () => {
     console.log(logging.startup)
     commands.post(client)
@@ -43,6 +48,8 @@ client.once("ready", () => {
             case "react":
                 config.features.react ? react.handle(Discord, client, interaction, command, args) : null
               break;
+            case "click":
+                config.features.click_to_create ? room.handle(Discord, client, interaction, command, args) : null
             default:
               // code block
           }

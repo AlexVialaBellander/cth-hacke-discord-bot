@@ -4,65 +4,65 @@ const emojiMap = require('emoji-unicode-to-name');
 
 let command = {
     name: "react",
-        description: "A react-role-bot",
-        options: [
-            {
-                name: "add",
-                description: "add a react-listener",
-                type: 1,
-                options: [
-                    {
-                        name: "message-id",
-                        description: "send the message ID you want to add the bot to",
-                        type: 3,
-                        required: true
-                    },
-                    {
-                        name: "emoji",
-                        description: "emoji users will use to join the role",
-                        type: 3,
-                        required: true
-                    },
-                    {
-                        name: "role-name",
-                        description: "name of the role to join",
-                        type: 3,
-                        required: true
-                    }
-                ]
-            },
-            {
-                name: "disable",
-                description: "disable the react-role-bot from a message",
-                type: 1,
-                options: [
-                    {
-                        name: "message-id",
-                        description: "send the message ID to remove react bot from that message",
-                        type: 3,
-                        required: true
-                    }
-                ]
-            },
-            {
-                name: "remove",
-                description: "remove a role from the message",
-                type: 1,
-                options: [
-                    {
-                        name: "message-id",
-                        description: "send the message ID to remove react bot from that message",
-                        type: 3,
-                        required: true
-                    },
-                    {
-                        name: "emoji",
-                        description: "emoji representing the role you want to remove",
-                        type: 3,
-                        required: true
-                    }
-                ]
-            }
+    description: "A react-role-bot",
+    options: [
+        {
+            name: "add",
+            description: "add a react-listener",
+            type: 1,
+            options: [
+                {
+                    name: "message-id",
+                    description: "send the message ID you want to add the bot to",
+                    type: 3,
+                    required: true
+                },
+                {
+                    name: "emoji",
+                    description: "emoji users will use to join the role",
+                    type: 3,
+                    required: true
+                },
+                {
+                    name: "role-name",
+                    description: "name of the role to join",
+                    type: 3,
+                    required: true
+                }
+            ]
+        },
+        {
+            name: "disable",
+            description: "disable the react-role-bot from a message",
+            type: 1,
+            options: [
+                {
+                    name: "message-id",
+                    description: "send the message ID to remove react bot from that message",
+                    type: 3,
+                    required: true
+                }
+            ]
+        },
+        {
+            name: "remove",
+            description: "remove a role from the message",
+            type: 1,
+            options: [
+                {
+                    name: "message-id",
+                    description: "send the message ID to remove react bot from that message",
+                    type: 3,
+                    required: true
+                },
+                {
+                    name: "emoji",
+                    description: "emoji representing the role you want to remove",
+                    type: 3,
+                    required: true
+                }
+            ]
+        }
         ]
 }
 
@@ -102,7 +102,7 @@ async function handle(Discord, client, interaction, command, args) {
                         .then(() => {
                             console.log(chalk.greenBright(`REACT.ADD : reacted with ${emoji} on ${target}`)) 
                             //Update the keeper
-                            let keeper = JSON.parse(fs.readFileSync("./features/react-keeper.json", "utf8"))
+                            let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
                             if(keeper[target] === undefined){
                                 keeper[target] = {}
                             }
@@ -113,7 +113,7 @@ async function handle(Discord, client, interaction, command, args) {
                             keeper[target][emojiName] = data.id
                             keeperOutput = JSON.stringify(keeper, null, 2)
                             try {
-                                fs.writeFile("./features/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
+                                fs.writeFile("./features/keepers/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
                                     if(error) {
                                         console.log(error)
                                     }
@@ -133,7 +133,7 @@ async function handle(Discord, client, interaction, command, args) {
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
         let targetMessage = await targetChannel.messages.fetch(target)
-        let keeper = JSON.parse(fs.readFileSync("./features/react-keeper.json", "utf8"))
+        let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
         console.log()
         for (var e in keeper[target]) {
             let role = await targetChannel.guild.roles.fetch(keeper[target][e])
@@ -143,7 +143,7 @@ async function handle(Discord, client, interaction, command, args) {
         delete keeper[target]
         keeperOutput = JSON.stringify(keeper, null, 2)
         try {
-            fs.writeFile("./features/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
+            fs.writeFile("./features/keepers/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
                 if(error) {
                     console.log(error)
                 }
@@ -160,7 +160,7 @@ async function handle(Discord, client, interaction, command, args) {
         const emoji = args[0]["options"].find(arg => arg.name.toLowerCase() == "emoji").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
         let targetMessage = await targetChannel.messages.fetch(target)
-        let keeper = JSON.parse(fs.readFileSync("./features/react-keeper.json", "utf8"))
+        let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
 
         //decide emojiName for keeper
         let emojiName = emojiMap.get(emoji)
@@ -186,7 +186,7 @@ async function handle(Discord, client, interaction, command, args) {
         }
         keeperOutput = JSON.stringify(keeper, null, 2)
         try {
-            fs.writeFile("./features/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
+            fs.writeFile("./features/keepers/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
                 if(error) {
                     console.log(error)
                 }
@@ -204,7 +204,7 @@ function addListenerForAdd(client) {
     client.on('messageReactionAdd', async (reaction, user) => {
         if(client.user.id == user.id) return;
         target = await reaction.message.fetch()
-        let keeper = JSON.parse(fs.readFileSync("./features/react-keeper.json", "utf8"))
+        let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
         if(keeper[target.id] !== undefined){ //if message has a rolebot
             let member = await target.guild.members.fetch(user.id)
             let emojiName = emojiMap.get(reaction.emoji.name)
@@ -225,7 +225,7 @@ function addListenerForAdd(client) {
 function addListenerForRemove(client) {
     client.on('messageReactionRemove', async (reaction, user) => {
         target = await reaction.message.fetch()
-        let keeper = JSON.parse(fs.readFileSync("./features/react-keeper.json", "utf8"))
+        let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
         if(keeper[target.id] !== undefined){ //if message has a rolebot
             let member = await target.guild.members.fetch(user.id)
             let emojiName = emojiMap.get(reaction.emoji.name)

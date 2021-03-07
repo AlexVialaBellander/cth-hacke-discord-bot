@@ -1,8 +1,5 @@
 ![github](https://user-images.githubusercontent.com/42417723/109477305-29bf5000-7a78-11eb-903b-6a07bef23fc8.png)
 
-# Running the bot
-Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
-
 # Community Discord Bot
 
 This bot was originally developed for a community Discord for Computer Science and Engineering Students @ Chalmers Unviersity of Technology.
@@ -16,6 +13,9 @@ A list of current supported features:
 - React-to-role
 - Say and edit as bot
 - Post random photo from _dfoto.se_ - The photo-committee at CSE at Chalmers.
+
+# Running the bot
+Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
 
 # How to use the bot
 Instructions on how to use the above features.
@@ -65,8 +65,6 @@ Edit the title or content of an embeded message posted by Hacke. You must run th
 
 ## Get random DFoto image
 Post a random dfoto image in the textchannel by writing `!dfoto`
-
-# Development & Running the bot
 
 # License
 Permission is hereby granted, free of charge, to any person obtaining

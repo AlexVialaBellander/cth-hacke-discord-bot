@@ -81,4 +81,4 @@ Post a random dfoto image in the textchannel by writing `!dfoto`
 
 
 ## Get random CFFC image
-Post a random dfoto image in the textchannel by writing `!cffc`
+Post a random cffc image in the textchannel by writing `!cffc`

@@ -22,8 +22,7 @@ Before running the bot you must supply `config.json` with a valid BOT Token from
 ![usage](https://user-images.githubusercontent.com/42417723/110225406-ac676580-7ee5-11eb-9523-b8411bd7f8c8.png)
 
 # Guide on how to use the bot
-Read the Usage Guide on how to use the bot's different features.
-[USAGE.md](/features/USAGE.md)
+Read the Usage Guide on how to use the bot's different features at [USAGE.md](/features/USAGE.md)
 
 # License
 Permission is hereby granted, free of charge, to any person obtaining

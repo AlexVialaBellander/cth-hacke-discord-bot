@@ -69,5 +69,15 @@ You can make the bot post limited functionality embeded messages and edit these 
 Edit the title or content of an embeded message posted by Hacke. You must run the edit command in the same channel as the message is in. Use `\n` for newlines.
 `/say edit message-id: <message to edit> description: <new content> title: <new title>`
 
+---
+![dfoto](https://user-images.githubusercontent.com/42417723/110225298-9ad18e00-7ee4-11eb-8bda-e6acfd5ece80.png)
+
 ## Get random DFoto image
 Post a random dfoto image in the textchannel by writing `!dfoto`
+
+---
+![Uploading cffc.png…]()
+
+
+## Get random CFFC image
+Post a random dfoto image in the textchannel by writing `!cffc`

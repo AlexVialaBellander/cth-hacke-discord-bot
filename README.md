@@ -19,8 +19,7 @@ A list of current supported features:
 Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
 
 # Guide on how to use the bot
-[/features/GUIDE.md](other_file.md)
-https://github.com/AlexVialaBellander/cth-hacke-discord-bot/blob/master/features/USAGE.md
+[/features/GUIDE.md](/features/GUIDE.md)
 
 # License
 Permission is hereby granted, free of charge, to any person obtaining

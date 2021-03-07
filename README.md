@@ -18,8 +18,11 @@ A list of current supported features:
 # Running the bot
 Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
 
+![usage](https://user-images.githubusercontent.com/42417723/110225406-ac676580-7ee5-11eb-9523-b8411bd7f8c8.png)
+
+
 # Guide on how to use the bot
-[/features/GUIDE.md](/features/GUIDE.md)
+[/features/GUIDE.md](/features/USAGE.md)
 
 # License
 Permission is hereby granted, free of charge, to any person obtaining

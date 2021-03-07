@@ -10,7 +10,8 @@ The bot is called _Hacke_ (en_us: woody woodpecker). It has some basic features 
 ### Current features
 A list of current supported features:
 
-- React-to-role
+- React-to-role (assign role from reactions)
+- click-to-create (create a new voice channel and get transfered to it)
 - Say and edit as bot
 - Post random photo from _dfoto.se_ - The photo-committee at CSE at Chalmers.
 

@@ -36,6 +36,7 @@ You can remove all roles and the reactbot on any message by using the slash comm
 `/react disable message-id:<target_message_id>`
 
 The bot will remove all reaction on `message-id` and remove all associated roles.
+
 ---
 ![click](https://user-images.githubusercontent.com/42417723/110225208-5db8cc00-7ee3-11eb-83ce-1cd6fc81fa6c.png)
 
@@ -53,6 +54,7 @@ This will turn the voice channel to a button.
 ### Room name configuration
 
 The list of names for the rooms are kept in the keeper `study-room-config.json`
+
 ---
 ![Say](https://user-images.githubusercontent.com/42417723/110225245-f0596b00-7ee3-11eb-87e4-949c85433321.png)
 

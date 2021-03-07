@@ -11,10 +11,10 @@ The bot is called _Hacke_ (en_us: woody woodpecker). It has some basic features 
 A list of current supported features:
 
 - React-to-role (assign role from reactions)
-- click-to-create (create a new voice channel and get transfered to it)
+- Click-to-create (create a new voice channel and get transfered to it)
 - Say and edit as bot
 - Post random photo from _dfoto.se_ - The photo-committee at CSE at Chalmers.
-
+- Post random photo from _cffc.se_ - The photo-committee at at Chalmers.
 # Running the bot
 Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
 

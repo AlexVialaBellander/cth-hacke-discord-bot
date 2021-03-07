@@ -76,7 +76,8 @@ Edit the title or content of an embeded message posted by Hacke. You must run th
 Post a random dfoto image in the textchannel by writing `!dfoto`
 
 ---
-![Uploading cffc.png…]()
+![cffc](https://user-images.githubusercontent.com/42417723/110225335-09165080-7ee5-11eb-9643-28a3eaee7080.png)
+
 
 
 ## Get random CFFC image

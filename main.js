@@ -10,6 +10,11 @@ const config = require("./config.json")
 
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] })
 
+if(config.token === null) {
+    console.log(logging.error("Welcome to Hacke Discord Bot. Set a token before using the application in config.json"))
+    process.exit(1)
+}
+
 react.addListenerForAdd(client)
 react.addListenerForRemove(client)
 

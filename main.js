@@ -8,14 +8,13 @@ const cffc = require("./features/cffc.js")
 const room = require("./features/study-room.js")
 const config = require("./config.json")
 
-
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] })
 
 react.addListenerForAdd(client)
 react.addListenerForRemove(client)
 
 client.on("message", message => {
-    switch(message.content) {
+    switch(message.content.split(" ")[0]) {
         case "ping":
             message.channel.send("pong")
             break;

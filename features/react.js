@@ -89,11 +89,11 @@ async function handle(Discord, client, interaction, command, args) {
             try {
                 roles.guild.roles.create({
                     data: {
-                    name: name.toLowerCase(),
-                    color: '0x' + Math.floor(Math.random()*16777215).toString(16),
-                    mentionable: true,
-                    managed: true,
-                    editable: false
+                        name: name.toLowerCase(),
+                        color: '0x' + Math.floor(Math.random()*16777215).toString(16),
+                        mentionable: true,
+                        managed: true,
+                        editable: false
                     },
                     reason: 'autocreated by rolebot',
                 })  .then((data) => {

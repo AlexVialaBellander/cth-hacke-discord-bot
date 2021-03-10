@@ -5,7 +5,6 @@ const success = chalk.bold.greenBright;
 const warning = chalk.bold.yellowBright;
 const neutral = chalk.whiteBright;
 
-
 let startup_message = success(`
 Hacke is online 
 Time: ${neutral(new Date)}
@@ -29,3 +28,6 @@ let startup = startup_message + divider + configReader() + divider
 
 
 exports.startup = startup;
+exports.success = success;
+exports.error = error;
+exports.warning = warning;

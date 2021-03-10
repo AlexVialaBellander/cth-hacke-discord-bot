@@ -53,7 +53,7 @@ client.once("ready", () => {
                 config.features.react ? react.handle(Discord, client, interaction, command, args) : null
               break;
             case "click":
-                config.features.click_to_create ? room.handle(Discord, client, interaction, command, args) : null
+                config.features.click_to_create ? room.handle(args) : null
             default:
               // code block
           }

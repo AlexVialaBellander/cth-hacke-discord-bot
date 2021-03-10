@@ -19,7 +19,7 @@ let command = {
     ]
 }
 
-async function handle(Discord, client, interaction, command, args) {
+async function handle(args) {
     const target = args.find(arg => arg.name.toLowerCase() == "channel-id").value
     let rooms = JSON.parse(fs.readFileSync("./features/keepers/study-room-config.json", "utf8"))
     rooms.target = target 
@@ -198,11 +198,6 @@ function updateKeeper(v_id, t_id, r_id, rooms, target) {
             })
         }
     }
-}
-
-function action(message){
-    
-
 }
 
 exports.handle_event = handle_event

@@ -1,4 +1,8 @@
 ![github](https://user-images.githubusercontent.com/42417723/109477305-29bf5000-7a78-11eb-903b-6a07bef23fc8.png)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/AlexVialaBellander/cth-hacke-discord-bot?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/AlexVialaBellander/cth-hacke-discord-bot?style=for-the-badge)
+![GitHub all releases](https://img.shields.io/github/downloads/AlexVialaBellander/cth-hacke-discord-bot/total?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues-raw/AlexVialaBellander/cth-hacke-discord-bot?style=for-the-badge)
 
 # Community Discord Bot
 

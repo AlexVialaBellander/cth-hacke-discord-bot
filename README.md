@@ -6,6 +6,8 @@
 
 # Community Discord Bot
 
+NOTE THAT THE BOT ONLY WORKS FOR ONE GUILD AT THE TIME FOR THE MOMENT
+
 This bot was originally developed for a community Discord for Computer Science and Engineering Students @ Chalmers Unviersity of Technology.
 
 ## Overview

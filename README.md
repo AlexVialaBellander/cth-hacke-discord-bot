@@ -21,9 +21,13 @@ A list of current supported features:
 - Say and edit as bot
 - Post random photo from _dfoto.se_ - The photo-committee at CSE at Chalmers.
 - Post random photo from _cffc.se_ - The photo-committee at at Chalmers.
+
 # Running the bot
+To runt the bot, download the latest [release](https://github.com/AlexVialaBellander/cth-hacke-discord-bot/releases). 
+
 Before running the bot you must supply `config.json` with a valid BOT Token from Discord. In `config.json` you can also enable and disable certain features and settings.
 
+Start the application by running `npm start`.
 ---
 ![usage](https://user-images.githubusercontent.com/42417723/110225406-ac676580-7ee5-11eb-9523-b8411bd7f8c8.png)
 

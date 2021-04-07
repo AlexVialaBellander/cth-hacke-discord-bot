@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const fs = require('fs');
 const emojiMap = require('emoji-unicode-to-name');
+const reply = require('../handling/interactionReply.js');
 
 let command = {
     name: "react",
@@ -67,6 +68,7 @@ let command = {
 }
 
 async function handle(Discord, client, interaction, command, args) {
+
     add : if(args[0]["name"] == "add") {
         const emoji = args[0]["options"].find(arg => arg.name.toLowerCase() == "emoji").value
         const name = args[0]["options"].find(arg => arg.name.toLowerCase() == "role-name").value
@@ -83,6 +85,7 @@ async function handle(Discord, client, interaction, command, args) {
             message = await targetChannel['messages'].fetch(target)
         } catch {
             console.log(chalk.yellowBright("REACT.ADD : Message not found in interaction channel"))
+            reply.reply(client, interaction, `Message not found in interaction channel`)
             break add
         }
         if(!exists){
@@ -121,27 +124,34 @@ async function handle(Discord, client, interaction, command, args) {
                                 console.log(chalk.greenBright(`REACT.ADD : keeper now: ${keeperOutput}`))
                             } catch {
                                 console.log(chalk.redBright(`REACT.ADD : Error when writing to keeper`))
+                                reply.reply(client, interaction, `Error when writing to keeper`)
                             }
                         })
                 })
             } catch {
                 console.log(chalk.redBright(`REACT.ADD : Error when creating role`))
+                reply.reply(client, interaction, `Error when creating role`)
            }
-        } else {console.log(chalk.redBright(`REACT.ADD : Role with name: ${name} already exists`))}
-        
+        } else {
+            console.log(chalk.redBright(`REACT.ADD : Role with name: ${name} already exists`))
+            reply.reply(client, interaction, `Role with name: ${name} already exists`)
+        }
+    reply.reply(client, interaction, `React-to-role successfully added`)   
     } else disable : if(args[0]["name"] == "disable") {
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
         let targetMessage = await targetChannel.messages.fetch(target)
         let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
-        console.log()
+
         for (var e in keeper[target]) {
             let role = await targetChannel.guild.roles.fetch(keeper[target][e])
             role.delete()
             console.log(chalk.greenBright(`REACT.DISABLE : Removed role ${keeper[target][e]}`))
         }
+
         delete keeper[target]
         keeperOutput = JSON.stringify(keeper, null, 2)
+
         try {
             fs.writeFile("./features/keepers/react-keeper.json", keeperOutput, { flag: "w+" }, error => {
                 if(error) {
@@ -155,6 +165,8 @@ async function handle(Discord, client, interaction, command, args) {
         
         targetMessage.reactions.removeAll()
         console.log(chalk.greenBright(`REACT.DISABLE : Removed All Reactions on ${target}`))
+        reply.reply(client, interaction, `Successfully removed all reactions on ${target}`)
+
     } else remove : if(args[0]["name"] == "remove") {
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         const emoji = args[0]["options"].find(arg => arg.name.toLowerCase() == "emoji").value
@@ -168,7 +180,7 @@ async function handle(Discord, client, interaction, command, args) {
             emojiName = emoji.split(":")[1]
         }
         //console.log(emoji.split(":")[2].split(">")[0])
-        console.log(targetMessage.reactions.cache.get(emoji.split(":")[2].split(">")[0]))
+        //console.log(targetMessage.reactions.cache.get(emoji.split(":")[2].split(">")[0]))
         //remove reaction
         targetMessage.reactions.cache.get(emojiMap.get(emoji) === undefined ? emoji.split(":")[2].split(">")[0] : emoji).remove()
         //remove role
@@ -196,7 +208,9 @@ async function handle(Discord, client, interaction, command, args) {
             console.log(chalk.redBright(`REACT.REMOVE : Error when writing to keeper`))
         }
         console.log(chalk.greenBright(`REACT.REMOVE : Removed reaction ${emoji} from ${target}`))
+        reply.reply(client, interaction, `Successfully removed reaction ${emoji} from ${target}`)
     }
+    
 }
 
 function addListenerForAdd(client) {

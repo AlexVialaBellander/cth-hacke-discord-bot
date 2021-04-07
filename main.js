@@ -39,24 +39,23 @@ client.on('voiceStateUpdate', async (oldState, newState) =>{
 client.once("ready", () => {
     console.log(logging.startup)
     commands.post(client)
-
+    
     //https://discord.com/developers/docs/interactions/slash-commands#interaction
     client.ws.on("INTERACTION_CREATE", async interaction => {
         const command = interaction.data.name.toLowerCase()
         const args = interaction.data.options
-
         switch(command) {
             case "say":
                 config.features.say ? say.handle(Discord, client, interaction, command, args) : null
                 break;
             case "react":
-                config.features.react ? react.handle(Discord, client, interaction, command, args) : null
+                config.features.rolebot ? react.handle(Discord, client, interaction, command, args) : null
               break;
             case "click":
                 config.features.click_to_create ? room.handle(args) : null
             default:
               // code block
-          }
+        }
     })
     
 })

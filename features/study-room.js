@@ -16,20 +16,28 @@ let command = {
             description: "the channel to turn into a click-to-create button",
             type: 3,
             required: true
+        },
+        {
+            name: "category-id",
+            description: "the category where text-channels will be spawned",
+            type: 3,
+            required: true
         }
     ]
 }
 
-async function handle(args) {
-    const target = args.find(arg => arg.name.toLowerCase() == "channel-id").value
+async function handle(client, interaction, args) {
+    const targetVoice = args.find(arg => arg.name.toLowerCase() == "channel-id").value
+    const targetCategory = args.find(arg => arg.name.toLowerCase() == "category-id").value
     let rooms = JSON.parse(fs.readFileSync("./features/keepers/study-room-config.json", "utf8"))
-    rooms.target = target 
+    rooms["target-category"] = targetCategory 
+    rooms.target = targetVoice
     fs.writeFile("./features/keepers/study-room-config.json", JSON.stringify(rooms, null, 2), { flag: "w+" }, error => {
         if(error) {
             console.log(error)
-            reply.reply(client, interaction, `Hacke failed to insert target to keeper`)
+            reply.reply(client, interaction, `Hacke failed to insert targets to keeper, check keeper file for corruption`)
         } else {
-            reply.reply(client, interaction, `Hacke added ${target} to keeper successfully.`)
+            reply.reply(client, interaction, `Hacke added targets to keeper successfully.`)
         }
     })
 } 

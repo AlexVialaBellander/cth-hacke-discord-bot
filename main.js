@@ -44,6 +44,7 @@ client.once("ready", () => {
     client.ws.on("INTERACTION_CREATE", async interaction => {
         const command = interaction.data.name.toLowerCase()
         const args = interaction.data.options
+        console.log(args)
         switch(command) {
             case "say":
                 config.features.say ? say.handle(Discord, client, interaction, command, args) : null
@@ -52,7 +53,7 @@ client.once("ready", () => {
                 config.features.rolebot ? react.handle(Discord, client, interaction, command, args) : null
               break;
             case "click":
-                config.features.click_to_create ? room.handle(args) : null
+                config.features.click_to_create ? room.handle(client, interaction, args) : null
             default:
               // code block
         }

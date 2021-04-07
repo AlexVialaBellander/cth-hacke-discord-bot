@@ -68,7 +68,6 @@ async function handle(Discord, client, interaction, command, args) {
             .setTitle(title)
             .setDescription(String(description).replace(/\\n/g, `\n`))
             .setColor(0xfa6607)
-        console.log(embedMessage)
         client.channels.cache.get(channel == "default" ? interaction.channel_id : channel).send("", embedMessage)
 
     } else edit : if (args[0]["name"] == "edit"){

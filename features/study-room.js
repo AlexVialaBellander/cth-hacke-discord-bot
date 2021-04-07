@@ -5,6 +5,7 @@ const error = chalk.bold.redBright;
 const success = chalk.bold.greenBright;
 const warning = chalk.bold.yellowBright;
 const neutral = chalk.whiteBright;
+const reply = require('../handling/interactionReply.js');
 
 let command = {
     name: "click",
@@ -26,6 +27,9 @@ async function handle(args) {
     fs.writeFile("./features/keepers/study-room-config.json", JSON.stringify(rooms, null, 2), { flag: "w+" }, error => {
         if(error) {
             console.log(error)
+            reply.reply(client, interaction, `Hacke failed to insert target to keeper`)
+        } else {
+            reply.reply(client, interaction, `Hacke added ${target} to keeper successfully.`)
         }
     })
 } 

@@ -1,3 +1,5 @@
+const reply = require('../handling/interactionReply.js');
+
 let command = {
     name: "say",
     description: "interact as Hacke",
@@ -69,6 +71,7 @@ async function handle(Discord, client, interaction, command, args) {
             .setDescription(String(description).replace(/\\n/g, `\n`))
             .setColor(0xfa6607)
         client.channels.cache.get(channel == "default" ? interaction.channel_id : channel).send("", embedMessage)
+        reply.reply(client, interaction, `Message successfully posted using Hacke.`)
 
     } else edit : if (args[0]["name"] == "edit"){
         const title = args[0]["options"].find(arg => arg.name.toLowerCase() == "title")
@@ -87,6 +90,7 @@ async function handle(Discord, client, interaction, command, args) {
             .setDescription(description == undefined ? message.embeds[0].description : String(description.value).replace(/\\n/g, `\n`))
             .setColor(0xfa6607)
         message.edit("", embedMessage)
+        reply.reply(client, interaction, `Message successfully edited using Hacke.`)
     }
 }
 

@@ -46,7 +46,7 @@ async function handle_event(oldState, newState) {
     let rooms = JSON.parse(fs.readFileSync("./features/keepers/study-room-config.json", "utf8"))
     let id = oldState.channelID
     let channel = oldState.channel
-    if (newState === undefined) return; 
+    if (newState === undefined) return;
     //if active chat and exists and on join
     if (JSON.stringify(rooms.names).includes(newState.channelID) && newState.channelID != null) {
         let role_id
@@ -58,10 +58,10 @@ async function handle_event(oldState, newState) {
         if(role_id != null){
             try {
                 newState.member.roles.add(role_id)
-                console.log(success(`CLICK : added role ${role_id} related to ${newState.voice.name} to ${newState.member.id}`))
+                console.log(success(`CLICK : added role ${role_id} related to ${newState.channel.name} to ${newState.member.id}`))
 
             } catch {
-                console.log(error(`CLICK : unable to add role ${role_id} related to ${newState.voice.name} to ${newState.member.id}`))
+                console.log(error(`CLICK : unable to add role ${role_id} related to ${newState.channel.name} to ${newState.member.id}`))
             }
         }
     }

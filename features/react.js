@@ -1,8 +1,11 @@
+//IMPORTS
+//Import required modules
 const chalk = require('chalk');
 const fs = require('fs');
 const emojiMap = require('emoji-unicode-to-name');
 const reply = require('../handling/interactionReply.js');
 
+//JSON document sent to Discord for layout of slashcommand.
 let command = {
     name: "react",
     description: "A react-role-bot",
@@ -67,13 +70,16 @@ let command = {
         ]
 }
 
+//handler function for when enabling react bot on a channel
 async function handle(Discord, client, interaction, command, args) {
-
+    //if slash command argument is add, do this.
     add : if(args[0]["name"] == "add") {
+        //find emoji, name and target text message from the user input.
         const emoji = args[0]["options"].find(arg => arg.name.toLowerCase() == "emoji").value
         const name = args[0]["options"].find(arg => arg.name.toLowerCase() == "role-name").value
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
 
+        //fetch guild and roles from the interaction
         let guild = await client.guilds.fetch(interaction.guild_id)
         let roles = await guild.roles.fetch(interaction.guild_id)
         let exists = roles.guild.roles.cache.some(role => role.name.toLowerCase() == name)
@@ -82,14 +88,18 @@ async function handle(Discord, client, interaction, command, args) {
         let targetChannel = await client.channels.fetch(interaction.channel_id)
         let message = ""
         try {
+            //fetch the target message.
             message = await targetChannel['messages'].fetch(target)
         } catch {
             console.log(chalk.yellowBright("REACT.ADD : Message not found in interaction channel"))
+            //send a reply to the discord api.
             reply.reply(client, interaction, `Message not found in interaction channel`)
             break add
         }
+        //if there does not already exist a role with the user input defined name.
         if(!exists){
             try {
+                //create the role with said name.
                 roles.guild.roles.create({
                     data: {
                         name: name.toLowerCase(),
@@ -101,6 +111,7 @@ async function handle(Discord, client, interaction, command, args) {
                     reason: 'autocreated by rolebot',
                 })  .then((data) => {
                     console.log(chalk.greenBright(`REACT.ADD : ${name} role created with id ${data.id}`))
+                    //react on the message with the emoji from user input.
                     message.react(emoji)
                         .then(() => {
                             console.log(chalk.greenBright(`REACT.ADD : reacted with ${emoji} on ${target}`)) 
@@ -124,31 +135,38 @@ async function handle(Discord, client, interaction, command, args) {
                                 console.log(chalk.greenBright(`REACT.ADD : keeper now: ${keeperOutput}`))
                             } catch {
                                 console.log(chalk.redBright(`REACT.ADD : Error when writing to keeper`))
+                                //send a reply to the discord api.
                                 reply.reply(client, interaction, `Error when writing to keeper`)
                             }
                         })
                 })
             } catch {
                 console.log(chalk.redBright(`REACT.ADD : Error when creating role`))
+                //send a reply to the discord api.
                 reply.reply(client, interaction, `Error when creating role`)
            }
         } else {
             console.log(chalk.redBright(`REACT.ADD : Role with name: ${name} already exists`))
+            //send a reply to the discord api.
             reply.reply(client, interaction, `Role with name: ${name} already exists`)
         }
-    reply.reply(client, interaction, `React-to-role successfully added`)   
-    } else disable : if(args[0]["name"] == "disable") {
+    reply.reply(client, interaction, `React-to-role successfully added`) 
+    } else disable : if(args[0]["name"] == "disable") { //if the slash command argument is disable, run this.  
+        //fetch target message from user input and fetch all channel(s) from interaction
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
         let targetMessage = await targetChannel.messages.fetch(target)
         let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
 
+        //for every role in the keeper related to the message.
         for (var e in keeper[target]) {
+            //fetch the role from Discord
             let role = await targetChannel.guild.roles.fetch(keeper[target][e])
+            //delete the role
             role.delete()
             console.log(chalk.greenBright(`REACT.DISABLE : Removed role ${keeper[target][e]}`))
         }
-
+        //once all roles are removed, (above), remove entry from keeper.
         delete keeper[target]
         keeperOutput = JSON.stringify(keeper, null, 2)
 
@@ -162,12 +180,14 @@ async function handle(Discord, client, interaction, command, args) {
         } catch {
             console.log(chalk.redBright(`REACT.DISABLE : Error when writing to keeper`))
         }
-        
+        //remove all reactions from the message
         targetMessage.reactions.removeAll()
         console.log(chalk.greenBright(`REACT.DISABLE : Removed All Reactions on ${target}`))
+        //send a reply to the discord api.
         reply.reply(client, interaction, `Successfully removed all reactions on ${target}`)
 
-    } else remove : if(args[0]["name"] == "remove") {
+    } else remove : if(args[0]["name"] == "remove") { //if the slash command argument is remove, run this. 
+        //fetch target message from user input and fetch all channel(s) from interaction
         const target = args[0]["options"].find(arg => arg.name.toLowerCase() == "message-id").value
         const emoji = args[0]["options"].find(arg => arg.name.toLowerCase() == "emoji").value
         let targetChannel = await client.channels.fetch(interaction.channel_id)
@@ -179,12 +199,11 @@ async function handle(Discord, client, interaction, command, args) {
         if(emojiName === undefined){
             emojiName = emoji.split(":")[1]
         }
-        //console.log(emoji.split(":")[2].split(">")[0])
-        //console.log(targetMessage.reactions.cache.get(emoji.split(":")[2].split(">")[0]))
-        //remove reaction
+        //remove reaction from message.
         targetMessage.reactions.cache.get(emojiMap.get(emoji) === undefined ? emoji.split(":")[2].split(">")[0] : emoji).remove()
-        //remove role
+        //fetch role.
         let role = await targetChannel.guild.roles.fetch(keeper[target][emojiName])
+        //remove role.
         role.delete()
         console.log(chalk.greenBright(`REACT.REMOVE : Removed role ${keeper[target][e]}`))
         //update keeper
@@ -208,6 +227,7 @@ async function handle(Discord, client, interaction, command, args) {
             console.log(chalk.redBright(`REACT.REMOVE : Error when writing to keeper`))
         }
         console.log(chalk.greenBright(`REACT.REMOVE : Removed reaction ${emoji} from ${target}`))
+        //send a reply to the discord api.
         reply.reply(client, interaction, `Successfully removed reaction ${emoji} from ${target}`)
     }
     
@@ -216,10 +236,15 @@ async function handle(Discord, client, interaction, command, args) {
 function addListenerForAdd(client) {
     //REF: https://github.com/discordjs/discord.js/blob/master/docs/topics/partials.md
     client.on('messageReactionAdd', async (reaction, user) => {
+        //on Reaction add events.
+        //exit function if the bot is reacting.
         if(client.user.id == user.id) return;
+        //fetch the message.
         target = await reaction.message.fetch()
+        //get keeper
         let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
-        if(keeper[target.id] !== undefined){ //if message has a rolebot
+         //check if message has a rolebot assigned in keeper.
+        if(keeper[target.id] !== undefined){
             let member = await target.guild.members.fetch(user.id)
             let emojiName = emojiMap.get(reaction.emoji.name)
             if(emojiName === undefined){
@@ -238,15 +263,21 @@ function addListenerForAdd(client) {
 
 function addListenerForRemove(client) {
     client.on('messageReactionRemove', async (reaction, user) => {
+        //on Reaction remove events.
+        //fetch the message.
         target = await reaction.message.fetch()
+        //get keeper
         let keeper = JSON.parse(fs.readFileSync("./features/keepers/react-keeper.json", "utf8"))
-        if(keeper[target.id] !== undefined){ //if message has a rolebot
+         //check if message has a rolebot assigned in keeper.
+        if(keeper[target.id] !== undefined){
             let member = await target.guild.members.fetch(user.id)
+            //get the correct emojiname.
             let emojiName = emojiMap.get(reaction.emoji.name)
             if(emojiName === undefined){
                 emojiName = reaction.emoji.name.split(":")[0]
             }
             try {
+                //remove role from user who reacted.
                 member.roles.remove(keeper[target.id][emojiName])
                 console.log(chalk.greenBright(`REACT.addListenerForRemove : Removed role ${reaction.emoji.name} to ${member}`))
             }

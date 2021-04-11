@@ -1,3 +1,5 @@
+//IMPORTS
+//Import required modules
 const fs = require('fs');
 const config = require("../config.json")
 const chalk = require('chalk');
@@ -7,6 +9,7 @@ const warning = chalk.bold.yellowBright;
 const neutral = chalk.whiteBright;
 const reply = require('../handling/interactionReply.js');
 
+//JSON document sent to Discord for layout of slashcommand.
 let command = {
     name: "click",
     description: "Enable a click-to-create voice channel command",
@@ -25,26 +28,36 @@ let command = {
         }
     ]
 }
-
+//handler function for when enabling study room
 async function handle(client, interaction, args) {
+    //find arguments
     const targetVoice = args.find(arg => arg.name.toLowerCase() == "channel-id").value
     const targetCategory = args.find(arg => arg.name.toLowerCase() == "category-id").value
+    //get the room names from keeper.
     let rooms = JSON.parse(fs.readFileSync("./features/keepers/study-room-config.json", "utf8"))
+    //update copy of keeper with the targets
     rooms["target-category"] = targetCategory 
     rooms.target = targetVoice
+    //write to keeper
     fs.writeFile("./features/keepers/study-room-config.json", JSON.stringify(rooms, null, 2), { flag: "w+" }, error => {
         if(error) {
             console.log(error)
+            //send slash command done api call to discord
             reply.reply(client, interaction, `Hacke failed to insert targets to keeper, check keeper file for corruption`)
         } else {
+            //send slash command done api call to discord
             reply.reply(client, interaction, `Hacke added targets to keeper successfully.`)
         }
     })
 } 
 
 async function handle_event(oldState, newState) {
+    //this is going to run on voiceState update events.
+    //fetch rooms from keeper
     let rooms = JSON.parse(fs.readFileSync("./features/keepers/study-room-config.json", "utf8"))
+    //get id of the oldState
     let id = oldState.channelID
+    //get channel of the old state.
     let channel = oldState.channel
     if (newState === undefined) return;
     //if active chat and exists and on join

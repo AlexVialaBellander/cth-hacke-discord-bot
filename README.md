@@ -8,7 +8,7 @@
 
 NOTE THAT THE BOT ONLY WORKS FOR ONE GUILD AT THE TIME FOR THE MOMENT
 
-This bot was originally developed for a community Discord for Computer Science and Engineering Students @ Chalmers Unviersity of Technology.
+This bot was originally developed for a community Discord for Computer Science and Engineering Students @ Chalmers University of Technology.
 
 ## Overview
 The bot is called _Hacke_ (en_us: woody woodpecker). It has some basic features which improves quality of life on a discord server.

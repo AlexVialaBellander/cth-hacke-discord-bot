@@ -9,6 +9,7 @@ const dfoto = require("./features/dfoto.js")
 const cffc = require("./features/cffc.js")
 const room = require("./features/study-room.js")
 const config = require("./config.json")
+const test = require("./features/test.js")
 
 //INIT
 //Create a new discord Client called client
@@ -35,6 +36,18 @@ client.on("message", message => {
             break;
         case "!cffc":
             config.features.cffc ? cffc.action(message) : null
+            break;
+        case "!draw":
+            config.features.cffc ? test.handle(message) : null
+            break;
+        case "!correct":
+            config.features.cffc ? test.handle_correct(message) : null
+            break;
+        case "!next_round":
+            config.features.cffc ? test.handle_next_round(message) : null
+            break;
+        case "!init":
+            config.features.cffc ? test.handle_init(message) : null
             break;
     }
 })

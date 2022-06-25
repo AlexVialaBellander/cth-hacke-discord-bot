@@ -14,7 +14,7 @@
     "discord.js": "^12.5.1",
     "emoji-unicode": "^2.0.1",
     "emoji-unicode-to-name": "^1.0.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8"
